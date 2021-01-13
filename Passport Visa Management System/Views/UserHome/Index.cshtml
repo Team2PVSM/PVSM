@@ -5,3 +5,10 @@
 
 <h2>User Home</h2>
 
+@if (Session["SignUpMsg"] != null)
+{
+    var str = Session["SignUpMsg"];
+    <div>
+        @str
+    </div>
+}
