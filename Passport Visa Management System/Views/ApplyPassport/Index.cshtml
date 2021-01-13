@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    @*<script>
+            document.getElementById("issuedate").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getDate()
+        </script>*@
+    <link href="~/Styles/style.css" rel="stylesheet" />
+    <body id="applypassportbody">
+        <div class="main">
+
+            <h1>Apply Passport</h1>
+            <div class="containerpassport">
+                <div class="apply-passport-content">
+
+                    <div class="form-textbox">
+                        <label for="userid">User ID</label>
+                        <input type="text" name="userid" id="userid" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="country">Country</label>
+                        <select name="country" id="country">
+                            <option value="-1">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-textbox">
+                        <label for="state">State</label>
+                        <select name="state" id="state">
+                            <option value="-1">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-textbox">
+                        <label for="city">City</label>
+                        <select name="city" id="city">
+                            <option value="-1">Select</option>
+                        </select>
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="pass">Pin</label>
+                        <input type="password" name="pass" id="pass" />
+                    </div>
+                    <div class="form-textbox">
+                        <label for="issuedate">Issue Date</label>
+                        <input type="date" name="issuedate" id="issuedate" />
+                    </div>
+                    <h4>Type of Service</h4>
+                    <div class="form-radio">
+                        <input type="radio" name="member_level" value="normal" id="normal" checked="checked" />
+                        <label for="normal">Normal</label>
+
+                        <input type="radio" name="member_level" value="tatkal" id="tatkal" />
+                        <label for="tatkal">Tatkal</label>
+
+                    </div>
+                    <h4>Type of Booklet</h4>
+                    <div class="form-radio">
+                        <input type="radio" name="member_level1" value="30page" id="30page" checked="checked" />
+                        <label for="30page">30 Pages</label>
+
+                        <input type="radio" name="member_level1" value="60page" id="60page" />
+                        <label for="60page">60 Pages</label>
+
+                    </div>
+
+                    <div class="Apply">
+                        <input type="submit" name="submit" id="submit" class="submit" value="Apply" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+}
