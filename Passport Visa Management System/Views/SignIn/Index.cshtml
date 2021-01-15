@@ -15,7 +15,7 @@
 
     <div class="tabs-content">
         <div id="signup-tab-content" class="active">
-            @*<form class="signup-form" action="" method="post">*@
+           
             @using (Html.BeginForm(new { AccountType = "SignUp" }))
             {
                 @Html.TextBoxFor(x => x.FirstName, new { placeholder = "First Name", Class = "input" });
@@ -46,17 +46,16 @@
 
            },
            new { @class = "input" })
-                @*@Html.TextBoxFor(x => x.ApplyType, new { placeholder = "Apply Type", Class = "input" });*@
-                @Html.DropDownListFor(m => m.HintQuestionId,new SelectList(ViewBag.HintQuestionDD,"Id", "Questions"), new { @class = "input" })
-                @Html.TextBoxFor(x => x.HintAnswer, new { placeholder = "Hint Answer", Class = "input" });
-                
+               
+            if (ViewBag.HintQuestionDD!=null)
+            {
 
+                @Html.DropDownListFor(m => m.HintQuestionId,new SelectList(ViewBag.HintQuestionDD,"Id", "Questions"), new { @class = "input" })
+            }
                 @Html.TextBoxFor(x => x.HintAnswer, new { placeholder = "Hint Answer", Class = "input" });
                 <input type="submit" class="button" value="Sign Up">
             }
-            @*<input type="text" class="input" id="user_name" autocomplete="off" placeholder="Username">
-        <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">*@
-            @*</form>*@<!--.login-form-->
+            
             <div class="help-text">
                 <p>By signing up, you agree to our</p>
                 <p><a href="#">Terms of service</a></p>

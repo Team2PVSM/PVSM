@@ -1,4 +1,5 @@
-﻿using Passport_Visa_Management_System.Models;
+﻿using Newtonsoft.Json.Linq;
+using Passport_Visa_Management_System.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,18 @@ namespace Passport_Visa_Management_System.Controllers
         [HttpPost]
         public ActionResult Index(string AccountType, PassportVisaManagementSystemService.User U)
         {
-            if (AccountType.ToLower()== "signup")
+                if (AccountType.ToLower()== "signup")
             {
                 Session["SignUpMsg"] = null;
-                string str = "Dear User \n Your User Id is" +U.UserId+ "and your password is"+U.Password+ ".\nYou are planning for"+ U.ApplyType +"and your citizen type is"+U.CitizenType;
+                Session["userName"] = null;
+                Session["password"] = null;
+                string email = U.EmailAddress;
                 bool SignUpResult = DbOperation.UserSignUp(U);
+                var list = DbOperation.FetchUserByEmail(U.EmailAddress);
+                Session["userName"] = list[0].UserId;
+                Session["password"] = list[0].Password;
+
+                string str = "Dear User \n Your User Id is " + list[0].UserId+ " and your password is "+ list[0].Password+ ".\nYou are planning for "+ list[0].ApplyType +" and your citizen type is "+ list[0].CitizenType;
                 if (SignUpResult)
                 {
                     Session["SignUpMsg"]  = str;
@@ -43,7 +51,22 @@ namespace Passport_Visa_Management_System.Controllers
                 bool SignInResult = DbOperation.UserSignIn(U);
                 if (SignInResult)
                 {
-                    return Redirect("/UserHome");
+            var userList = DbOperation.FetchUserByuserparameter("userid", U.UserId);
+
+                    if (userList[0].ApplyType.ToLower() == "passport")
+                    {
+                        return Redirect("/ApplyPassport");
+
+                    }
+                    else if (userList[0].ApplyType.ToLower() == "visa")
+                    {
+                        return Redirect("/ApplyVisa");
+
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {

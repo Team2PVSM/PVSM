@@ -1,0 +1,44 @@
+﻿@{ ViewBag.Title = "Index"; }
+
+@using (Html.BeginForm())
+{@*
+        <script>
+                   document.getElementById("Date_Application").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getDate()
+
+                </script>*@
+
+
+                <link href="~/Style/applyVisa.css" rel="stylesheet" />
+                                <body id="applypassportbody">
+                                    <div class="main">
+                                        <h1>Apply Visa</h1>
+                                        <div class="containerpassport">
+                                            <div class="apply-passport-content">
+                                                <div class="form-textbox">
+                                                    <label for="userid">User ID</label>
+                                                    <input type="text" name="userid" id="userid" />
+                                                </div>
+                                                <div class="form-textbox">
+                                                    <label for="country">Country</label>
+                                                    <select name="country" id="country">
+                                                        <option value="-1">Select</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-textbox">
+                                                    <label for="occupation">Occupation</label>
+                                                    <select name="occupation" id="occupation">
+                                                        <option value="-1">Select</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-textbox">
+                                                    <label for="Date_Application">Application Date</label>
+                                                    <input type="date" name="Date_Application" id="Date_Application" />
+                                                </div>
+                                                <div class="Apply">
+                                                    <input type="submit" name="submit" id="submit" class="submit" value="Apply" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </body>
+}
