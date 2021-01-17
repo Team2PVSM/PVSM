@@ -14,7 +14,7 @@
     </div><!--.tabs-->
 
     <div class="tabs-content">
-        <div id="signup-tab-content" class="active">
+        <div id="signup-tab-content">
            
             @using (Html.BeginForm(new { AccountType = "SignUp" }))
             {
@@ -51,7 +51,8 @@
             {
 
                 @Html.DropDownListFor(m => m.HintQuestionId,new SelectList(ViewBag.HintQuestionDD,"Id", "Questions"), new { @class = "input" })
-            }
+            
+                }
                 @Html.TextBoxFor(x => x.HintAnswer, new { placeholder = "Hint Answer", Class = "input" });
                 <input type="submit" class="button" value="Sign Up">
             }
@@ -62,7 +63,7 @@
             </div><!--.help-text-->
         </div><!--.signup-tab-content-->
 
-        <div id="login-tab-content">
+        <div id="login-tab-content" class="active">
             @*<form class="login-form" action="" method="post">*@
             @using (Html.BeginForm(new { AccountType = "SignIn" }))
             {
