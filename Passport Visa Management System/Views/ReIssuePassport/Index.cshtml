@@ -1,0 +1,83 @@
+﻿@model Passport_Visa_Management_System.PassportVisaManagementSystemService.ApplyPassport
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{@*<script>
+            document.getElementById("issuedate").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getDate()
+        </script>*@
+
+<link href="~/Style/applyPassport.css" rel="stylesheet" />
+<body id="applypassportbody">
+    <div class="main">
+
+        <h1>Re-Issue Passport</h1>
+        <div class="containerpassport">
+            <div class="apply-passport-content">
+                <div class="form-textbox">
+                    <label for="reason">Reason</label>
+                    @Html.TextBox("reason")
+
+                </div>
+
+                <div class="form-textbox">
+                    <label for="userid">User ID</label>
+                    @Html.TextBoxFor(x => x.UserId, new { id = "userid" })
+
+                </div>
+
+                <div class="form-textbox">
+                    <label for="country">Country</label>
+                    @Html.DropDownListFor(x => x.Country, new List<SelectListItem> {
+                   new SelectListItem { Value = "-1" , Text = "Select" },
+                    })
+                    @*<select name="country" id="country">
+                <option value="-1">Select</option>
+            </select>*@
+                </div>
+                <div class="form-textbox">
+                    <label for="state">State</label>
+                    @Html.DropDownListFor(x => x.State, new List<SelectListItem> {
+                   new SelectListItem { Value = "-1" , Text = "Select" },
+                    })
+                </div>
+                <div class="form-textbox">
+                    <label for="city">City</label>
+                    @Html.DropDownListFor(x => x.City, new List<SelectListItem> {
+                   new SelectListItem { Value = "-1" , Text = "Select" },
+                    })
+                </div>
+
+                <div class="form-textbox">
+                    <label for="pass">Pin</label>
+                    @Html.TextBoxFor(x => x.Pin, new { id = "pass" })
+                </div>
+                <div class="form-textbox">
+                    <label for="issuedate">Issue Date</label>
+                    @Html.TextBoxFor(x => x.IssueDate, new { id = "issuedate", type = "date" })
+                </div>
+                <h4>Type of Service</h4>
+                <div class="form-radio">
+                    @Html.RadioButtonFor(x => x.ServiceType, "Normal", new { @checked = true, @id = "normal" })
+                    <label for="normal">Normal</label>
+                    @Html.RadioButtonFor(x => x.ServiceType, "Tatkal", new { @id = "tatkal" })
+                    <label for="tatkal">Tatkal</label>
+                </div>
+                <h4>Type of Booklet</h4>
+                <div class="form-radio">
+                    @Html.RadioButtonFor(x => x.BookletType, "30Pages", new { @checked = true, @id = "30Pages" })
+                    <label for="30Pages">30 Pages</label>
+                    @Html.RadioButtonFor(x => x.BookletType, "60Pages", new { @id = "60Pages" })
+                    <label for="60Pages">60 Pages</label>
+                </div>
+
+                <div class="Apply">
+                    <input type="submit" name="submit" id="submit" class="submit" value="Apply" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+}

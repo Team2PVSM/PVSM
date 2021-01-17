@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Passport_Visa_Management_System.PassportVisaManagementSystemService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,11 @@ namespace Passport_Visa_Management_System.Models
             PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
             string str = PVMS.FetchUserByuserparameter(parameter, value);
             return JsonConvert.DeserializeObject<List<PassportVisaManagementSystemService.User>>(str);
+        }
+        public static bool ApplyPassportNew(ApplyPassport A)
+        {
+            Service1Client PVMS = new Service1Client();
+            return PVMS.ApplyForPassport(A);
         }
     }
 }

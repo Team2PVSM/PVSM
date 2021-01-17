@@ -1,4 +1,4 @@
-﻿
+﻿@model Passport_Visa_Management_System.PassportVisaManagementSystemService.ApplyPassport 
 @{
     ViewBag.Title = "Index";
 }
@@ -19,53 +19,53 @@
 
                     <div class="form-textbox">
                         <label for="userid">User ID</label>
-                        <input type="text" name="userid" id="userid" />
+                        @Html.TextBoxFor(x => x.UserId, new { id = "userid" })
+                        
                     </div>
 
                     <div class="form-textbox">
                         <label for="country">Country</label>
-                        <select name="country" id="country">
+                        @Html.DropDownListFor(x => x.Country, new List<SelectListItem> {
+                       new SelectListItem { Value = "-1" , Text = "Select" }, 
+                        })
+                        @*<select name="country" id="country">
                             <option value="-1">Select</option>
-                        </select>
+                        </select>*@
                     </div>
                     <div class="form-textbox">
                         <label for="state">State</label>
-                        <select name="state" id="state">
-                            <option value="-1">Select</option>
-                        </select>
+                        @Html.DropDownListFor(x => x.State, new List<SelectListItem> {
+                       new SelectListItem { Value = "-1" , Text = "Select" },
+                        })
                     </div>
                     <div class="form-textbox">
                         <label for="city">City</label>
-                        <select name="city" id="city">
-                            <option value="-1">Select</option>
-                        </select>
+                        @Html.DropDownListFor(x => x.City, new List<SelectListItem> {
+                       new SelectListItem { Value = "-1" , Text = "Select" },
+                        })
                     </div>
 
                     <div class="form-textbox">
                         <label for="pass">Pin</label>
-                        <input type="password" name="pass" id="pass" />
+                        @Html.TextBoxFor(x => x.Pin, new { id = "pass" })
                     </div>
                     <div class="form-textbox">
                         <label for="issuedate">Issue Date</label>
-                        <input type="date" name="issuedate" id="issuedate" />
+                        @Html.TextBoxFor(x => x.IssueDate, new { id = "issuedate", type = "date" })
                     </div>
                     <h4>Type of Service</h4>
                     <div class="form-radio">
-                        <input type="radio" name="member_level" value="normal" id="normal" checked="checked" />
+                        @Html.RadioButtonFor(x => x.ServiceType, "Normal", new {@checked = true, @id = "normal"})
                         <label for="normal">Normal</label>
-
-                        <input type="radio" name="member_level" value="tatkal" id="tatkal" />
+                        @Html.RadioButtonFor(x => x.ServiceType, "Tatkal", new {@id= "tatkal" })
                         <label for="tatkal">Tatkal</label>
-
                     </div>
                     <h4>Type of Booklet</h4>
                     <div class="form-radio">
-                        <input type="radio" name="member_level1" value="30page" id="30page" checked="checked" />
-                        <label for="30page">30 Pages</label>
-
-                        <input type="radio" name="member_level1" value="60page" id="60page" />
-                        <label for="60page">60 Pages</label>
-
+                        @Html.RadioButtonFor(x => x.BookletType, "30Pages", new { @checked = true, @id = "30Pages" })
+                        <label for="30Pages">30 Pages</label>
+                        @Html.RadioButtonFor(x => x.BookletType, "60Pages", new { @id = "60Pages" })
+                        <label for="60Pages">60 Pages</label>
                     </div>
 
                     <div class="Apply">
