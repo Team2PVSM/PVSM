@@ -29,7 +29,7 @@
 
                 <div class="form-textbox">
                     <label for="country">Country</label>
-                    @Html.DropDownListFor(x => x.Country, new List<SelectListItem> {
+                    @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem> {
                    new SelectListItem { Value = "-1" , Text = "Select" },
                     })
                     @*<select name="country" id="country">
@@ -38,13 +38,13 @@
                 </div>
                 <div class="form-textbox">
                     <label for="state">State</label>
-                    @Html.DropDownListFor(x => x.State, new List<SelectListItem> {
+                    @Html.DropDownListFor(x => x.StateId, new List<SelectListItem> {
                    new SelectListItem { Value = "-1" , Text = "Select" },
                     })
                 </div>
                 <div class="form-textbox">
                     <label for="city">City</label>
-                    @Html.DropDownListFor(x => x.City, new List<SelectListItem> {
+                    @Html.DropDownListFor(x => x.CityId, new List<SelectListItem> {
                    new SelectListItem { Value = "-1" , Text = "Select" },
                     })
                 </div>
