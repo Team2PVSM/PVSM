@@ -34,6 +34,7 @@ namespace Passport_Visa_Management_System.Controllers
                 var list = DbOperation.FetchUserByEmail(U.EmailAddress); //email id  must be unique
                 if (list != null && list.Count == 1)
                 {
+                    Response.Cookies["UserName"].Value = list[0].UserId;
                     Session["userName"] = list[0].UserId;
                     Session["password"] = list[0].Password;
                 }
@@ -65,6 +66,7 @@ namespace Passport_Visa_Management_System.Controllers
                 if (SignInResult)
                 {
                     Session["Page"] = AccountType;
+                    Response.Cookies["UserName"].Value = U.UserId;
                     var userList = DbOperation.FetchUserByuserparameter("userid", U.UserId);
 
                     if (userList[0].ApplyType.ToLower() == "passport")

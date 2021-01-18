@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace Passport_Visa_Management_System.Models
 {
@@ -39,5 +40,25 @@ namespace Passport_Visa_Management_System.Models
             Service1Client PVMS = new Service1Client();
             return PVMS.ApplyForPassport(A);
         }
+        public static dynamic FetchStateByCountryId(int CountryId)
+        {
+
+            PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
+            string str = PVMS.FetchState(CountryId);
+            return str;
+        }
+        public static dynamic FetchCityByStateId(int StateId)
+        {
+
+            PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
+            string str = PVMS.FetchCity(StateId);
+            return str;
+        }
+        public static int FetchIdByUserName(string userName)
+        {
+            PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
+            return PVMS.getIdByUserId(userName);
+        }
+
     }
 }

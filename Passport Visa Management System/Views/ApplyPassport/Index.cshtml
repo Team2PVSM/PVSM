@@ -1,4 +1,4 @@
-﻿@model Passport_Visa_Management_System.PassportVisaManagementSystemService.ApplyPassport 
+﻿@model Passport_Visa_Management_System.PassportVisaManagementSystemService.ApplyPassport
 @{
     ViewBag.Title = "Index";
 }
@@ -10,6 +10,79 @@
         </script>*@
 
     <link href="~/Style/applyPassport.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            $('select#selectedCountry').change(function () {
+                $('#m').val('Select');
+                $('#m').find('option').remove()
+                var selectedCountry = $(this).val();
+                $.ajax
+                    ({
+
+                        type: "POST",
+                        url: '/ApplyPassport/GetStateByCountryId',
+                        //url: '@Url.Action("fetchEmp")',
+                        data: "{'selectedCountry':" + selectedCountry + "}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        //  async: false,
+                        success: function (data) {
+                            //console.log(data)
+                            $("#m").append("<option value='-1' >--Select State--</option>")
+                            for (i = 0; i < data.length; i++) {
+                                var opt = document.createElement("option");
+                                document.getElementById("m").innerHTML += '<option value="' + data[i].StateId + '">' + data[i].StateName + '</option>';
+                                //<option value="volvo">Volvo</option>
+                            }
+
+                            //window.location.href = "/ApplyPassport/Index;
+                        },
+                        error: function (xhr, err) {
+                            alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                            alert("responseText: " + xhr.responseText);
+                        }
+                    });
+            });
+            $("#m").change(function () {
+                 $('#m1').val('Select');
+                $('#m1').find('option').remove()
+                var selectState = $(this).val();
+                $.ajax
+                    ({
+
+                        type: "POST",
+                        url: '/ApplyPassport/GetCityByStateId',
+                        //url: '@Url.Action("fetchEmp")',
+                        data: "{'selectState':" + selectState + "}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        //  async: false,
+                        success: function (data) {
+                            $("#m1").append("<option value='-1' >--Select City--</option>")
+
+                            //console.log(data)
+                            $("#StateId").val(selectState);
+                            for (i = 0; i < data.length; i++) {
+                                var opt = document.createElement("option");
+                                document.getElementById("m1").innerHTML += '<option value="' + data[i].CityId + '">' + data[i].CityName + '</option>';
+                                //<option value="volvo">Volvo</option>
+                            }
+                            //window.location.href = "/ApplyPassport/Index;
+                        },
+                        error: function (xhr, err) {
+                            alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                            alert("responseText: " + xhr.responseText);
+                        }
+                    });
+            });
+
+            $("#m1").change(function () {
+                var cityId = $("#m1").val();
+                $("#CityId").val(cityId);
+            })
+        })
+    </script>
     <body id="applypassportbody">
         <div class="main">
 
@@ -19,33 +92,31 @@
 
                     <div class="form-textbox">
                         <label for="userid">User ID</label>
-                        @Html.TextBoxFor(x => x.UserId, new { id = "userid" })
-                        
+                        @Html.TextBoxFor(x => x.UserId, new { @readonly = "readonly", @Value = @Request.Cookies["UserName"].Value.ToString(), Username = @Request.Cookies["UserName"].Value.ToString(), id = "userid" })
+
                     </div>
 
                     <div class="form-textbox">
                         <label for="country">Country</label>
                         @if (ViewBag.CountryDD != null)
                         {
-                        @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem> {
-                       new SelectListItem { Value = "-1" , Text = "Select" },
-                        })
+                            @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CountryDD, "CountryId", "CountryName"), new { @id = "selectedCountry" })
                         }
-                        @*<select name="country" id="country">
-                            <option value="-1">Select</option>
-                        </select>*@
+                        
                     </div>
+
                     <div class="form-textbox">
                         <label for="state">State</label>
-                        @Html.DropDownListFor(x => x.StateId, new List<SelectListItem> {
-                       new SelectListItem { Value = "-1" , Text = "Select" },
-                        })
+                        <select id="m" >
+                        </select>
+                        @Html.HiddenFor(x => x.StateId)
                     </div>
                     <div class="form-textbox">
                         <label for="city">City</label>
-                        @Html.DropDownListFor(x => x.CityId, new List<SelectListItem> {
-                       new SelectListItem { Value = "-1" , Text = "Select" },
-                        })
+                        <select id="m1">
+                        </select>
+                        @Html.HiddenFor(x => x.CityId)
+                      
                     </div>
 
                     <div class="form-textbox">
@@ -54,13 +125,13 @@
                     </div>
                     <div class="form-textbox">
                         <label for="issuedate">Issue Date</label>
-                        @Html.TextBoxFor(x => x.IssueDate, new { id = "issuedate", type = "date" })
+                        @Html.TextBoxFor(x => x.IssueDate, new { id = "issuedate" })
                     </div>
                     <h4>Type of Service</h4>
                     <div class="form-radio">
-                        @Html.RadioButtonFor(x => x.ServiceType, "Normal", new {@checked = true, @id = "normal"})
+                        @Html.RadioButtonFor(x => x.ServiceType, "Normal", new { @checked = true, @id = "normal" })
                         <label for="normal">Normal</label>
-                        @Html.RadioButtonFor(x => x.ServiceType, "Tatkal", new {@id= "tatkal" })
+                        @Html.RadioButtonFor(x => x.ServiceType, "Tatkal", new { @id = "tatkal" })
                         <label for="tatkal">Tatkal</label>
                     </div>
                     <h4>Type of Booklet</h4>
@@ -72,7 +143,7 @@
                     </div>
 
                     <div class="Apply">
-                        <input type="submit" name="submit" id="submit" class="submit" value="Apply" />
+                        <input type="submit" name="submit" id="submit" class="submit" value="Apply"/>
                     </div>
                 </div>
             </div>
