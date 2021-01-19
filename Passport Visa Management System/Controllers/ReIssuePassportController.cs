@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Passport_Visa_Management_System.Models;
+using Passport_Visa_Management_System.PassportVisaManagementSystemService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,34 @@ namespace Passport_Visa_Management_System.Controllers
         // GET: ReIssuePassport
         public ActionResult Index()
         {
+            ApplyPassport C = new ApplyPassport();
+            Service1Client PVMS = new Service1Client();
+            Country[] D = PVMS.FetchCountries();
+            ViewBag.CountryDD = D.ToList();
+            return View(C);
+        }
+        [HttpPost]
+        public ActionResult Index(ApplyPassport A)
+        {
+            var username = Request.Cookies["UserName"].Value.ToString();
+            ViewBag.CountryDD = null;
+            Service1Client PVMS = new Service1Client();
+            Country[] D = PVMS.FetchCountries();
+            ViewBag.CountryDD = D.ToList();
+            int userId = DbOperation.FetchIdByUserName(username);
+            A.UserId = userId;
+            DbOperation.ReissuePassport(A);
             return View();
+        }
+        public string GetStateByCountryId(int selectedCountry)
+        {
+            ViewBag.stateListByCountry = DbOperation.FetchStateByCountryId(selectedCountry);
+            return ViewBag.stateListByCountry;
+        }
+        public string GetCityByStateId(int selectState)
+        {
+            ViewBag.cityListByState = DbOperation.FetchCityByStateId(selectState);
+            return ViewBag.cityListByState;
         }
     }
 }

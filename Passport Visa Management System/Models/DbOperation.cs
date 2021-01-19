@@ -65,6 +65,11 @@ namespace Passport_Visa_Management_System.Models
             string str = PVMS.fetchApplyPassportbyUserId(UserId);
             return JsonConvert.DeserializeObject<List<PassportVisaManagementSystemService.ApplyPassport>>(str);
         }
+		public static bool ReissuePassport(ApplyPassport R)
+        {
+            Service1Client PVMS = new Service1Client();
+            return PVMS.ReIssuePassport(R);
+        }
 
     }
 }
