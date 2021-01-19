@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Passport_Visa_Management_System.Models;
+using Passport_Visa_Management_System.PassportVisaManagementSystemService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,16 @@ namespace Passport_Visa_Management_System.Controllers
         // GET: ApplyVisa
         public ActionResult Index()
         {
+            ApplyVisa V = new ApplyVisa();
+            Service1Client PVMS = new Service1Client();
+            Country[] D = PVMS.FetchCountries();
+            ViewBag.CountryDD = D.ToList();
+            return View(V);
+        }
+        [HttpPost]
+        public ActionResult Index(ApplyVisa AV)
+        {
+            DbOperation.ApplyingVisa(AV);
             return View();
         }
     }

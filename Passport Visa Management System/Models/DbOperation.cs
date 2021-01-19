@@ -70,6 +70,10 @@ namespace Passport_Visa_Management_System.Models
             Service1Client PVMS = new Service1Client();
             return PVMS.ReIssuePassport(R);
         }
-
+        public static bool ApplyingVisa(ApplyVisa A)
+        {
+            Service1Client PVMS = new Service1Client();
+            return PVMS.ApplyForVisa(A);
+        }
     }
 }
