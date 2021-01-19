@@ -93,6 +93,8 @@
                     <div class="form-textbox">
                         <label for="userid">User ID</label>
                         @Html.TextBoxFor(x => x.UserId, new { @readonly = "readonly", @Value = @Request.Cookies["UserName"].Value.ToString(), Username = @Request.Cookies["UserName"].Value.ToString(), id = "userid" })
+                        @*<label for="userid" id="validator">abc</label>*@
+                        @*@Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger", id = "validator" })*@
 
                     </div>
 
@@ -101,31 +103,43 @@
                         @if (ViewBag.CountryDD != null)
                         {
                             @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CountryDD, "CountryId", "CountryName"), new { @id = "selectedCountry" })
+                           <div>
+
+                            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                           </div>
+
                         }
-                        
+
                     </div>
 
                     <div class="form-textbox">
                         <label for="state">State</label>
-                        <select id="m" >
+                        <select id="m">
                         </select>
                         @Html.HiddenFor(x => x.StateId)
+                        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+
                     </div>
                     <div class="form-textbox">
                         <label for="city">City</label>
                         <select id="m1">
                         </select>
                         @Html.HiddenFor(x => x.CityId)
-                      
+                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+
                     </div>
 
                     <div class="form-textbox">
                         <label for="pass">Pin</label>
                         @Html.TextBoxFor(x => x.Pin, new { id = "pass" })
+                        @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+
                     </div>
                     <div class="form-textbox">
                         <label for="issuedate">Issue Date</label>
                         @Html.TextBoxFor(x => x.IssueDate, new { id = "issuedate" })
+                        @Html.ValidationMessageFor(model => model.IssueDate, "", new { @class = "text-danger" })
+
                     </div>
                     <h4>Type of Service</h4>
                     <div class="form-radio">

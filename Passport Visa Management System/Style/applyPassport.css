@@ -224,9 +224,11 @@ h1 {
   -ms-border-radius: 10px; }
 
 .apply-passport-content {
-  padding: 40px 60px 32px 60px;
-  position: relative;
-  z-index: 99; }
+    /*padding: 40px 60px 32px 60px;*/
+    padding: 40px 16px 32px 60px;
+    position: relative;
+    z-index: 99;
+}
 
 .form-radio {
   margin: 0 -10px;
@@ -359,5 +361,10 @@ input:-webkit-autofill {
 
   input {
     padding: 16px 30px 16px 100px; } }
+
+
+#validator {
+    margin-left: 19em;
+}
 
 /*# sourceMappingURL=style.css.map */
