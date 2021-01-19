@@ -29,8 +29,22 @@ namespace Passport_Visa_Management_System.Controllers
             ViewBag.CountryDD = D.ToList();
             int userId = DbOperation.FetchIdByUserName(username);
             A.UserId = userId;
-            DbOperation.ApplyPassportNew(A);
-            return View();
+            bool successful = DbOperation.ApplyPassportNew(A);
+            if (successful)
+            {
+               var json= DbOperation.fetchApplyPassportbyUserId(userId);
+                Session["PassportNumber"] = json[0].PassportNumber;
+                Session["Amount"] = json[0].Amount;
+                Session["successMsg"] = "<b>Need the passport number while giving payment? Please note down your Id \n </b> \n" + json[0].PassportNumber + ".Passport application cost is Rs." + json[0].Amount;
+
+                return Redirect("/ApplyPassportSuccess");
+            }
+            else
+            {
+            
+                return View();
+
+            }
         }
         public string GetStateByCountryId(int selectedCountry)
         {

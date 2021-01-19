@@ -59,6 +59,12 @@ namespace Passport_Visa_Management_System.Models
             PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
             return PVMS.getIdByUserId(userName);
         }
+        public static dynamic fetchApplyPassportbyUserId(int UserId)
+        {
+            PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
+            string str = PVMS.fetchApplyPassportbyUserId(UserId);
+            return JsonConvert.DeserializeObject<List<PassportVisaManagementSystemService.ApplyPassport>>(str);
+        }
 
     }
 }
