@@ -14,67 +14,90 @@
     </div><!--.tabs-->
 
     <div class="tabs-content">
-        <div id="signup-tab-content">
-           
+        <div id="signup-tab-content" class='@ViewBag.signupActive'>
+
             @using (Html.BeginForm(new { AccountType = "SignUp" }))
             {
+                
                 @Html.TextBoxFor(x => x.FirstName, new { placeholder = "First Name", Class = "input" });
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
+
                 @Html.TextBoxFor(x => x.SurName, new { placeholder = "Sur Name", Class = "input" });
+                @Html.ValidationMessageFor(model => model.SurName, "", new { @class = "text-danger" })
+
 
                 @Html.TextBoxFor(x => x.DateOfBirth, new { placeholder = "Date Of Birth", Class = "input" });
+                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+
                 @Html.TextBoxFor(x => x.Address, new { placeholder = "Address", Class = "input" });
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
 
                 @Html.TextBoxFor(x => x.ContactNo, new { Value = "", placeholder = "Contact No", Class = "input" });
+                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+
                 @Html.TextBoxFor(x => x.EmailAddress, new { placeholder = "Email Address", Class = "input" });
+                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+
                 @Html.TextBoxFor(x => x.Qualification, new { placeholder = "Qualification", Class = "input" });
-                @*@Html.TextBoxFor(x => x.Gender, new { placeholder = "Gender", Class = "input" });*@
+                @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+
                 @Html.DropDownListFor(model => model.Gender,
-           new List<SelectListItem> {
+                    new List<SelectListItem> {
                        new SelectListItem { Value = "-1" , Text = "Select Gender" },
                        new SelectListItem { Value = "Male" , Text = "Male" },
                        new SelectListItem { Value = "Female" , Text = "Female" },
                        new SelectListItem { Value = "Trans" , Text = "Trans" }
 
-             },
-           new { @class = "input" })
+                    }, new { @class = "input" })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+
                 @Html.DropDownListFor(model => model.ApplyType,
-           new List<SelectListItem> {
-                       new SelectListItem { Value = "-1" , Text = "Select Apply Type" },
-                       new SelectListItem { Value = "passport" , Text = "Passport" },
-                       new SelectListItem { Value = "visa" , Text = "Visa" }
-                       //new SelectListItem { Value = "Trans" , Text = "Trans" }
-
-           },
-           new { @class = "input" })
-               
-            if (ViewBag.HintQuestionDD!=null)
+           new List<SelectListItem>
             {
+                new SelectListItem { Value = "-1" , Text = "Select Apply Type" },
+                 new SelectListItem { Value = "passport" , Text = "Passport" },
+                 new SelectListItem { Value = "visa" , Text = "Visa" }
+            }, new { @class = "input" })
+                @Html.ValidationMessageFor(model => model.ApplyType, "", new { @class = "text-danger" })
 
-                @Html.DropDownListFor(m => m.HintQuestionId,new SelectList(ViewBag.HintQuestionDD,"Id", "Questions"), new { @class = "input" })
-            
+                if (ViewBag.HintQuestionDD != null)
+                {
+
+                    @Html.DropDownListFor(m => m.HintQuestionId, new SelectList(ViewBag.HintQuestionDD, "Id", "Questions", "--Select Hint Question--"), new { @class = "input" })
+                    @Html.ValidationMessageFor(model => model.HintQuestionId, "", new { @class = "text-danger" })
+
                 }
                 @Html.TextBoxFor(x => x.HintAnswer, new { placeholder = "Hint Answer", Class = "input" });
+                @Html.ValidationMessageFor(model => model.HintAnswer, "", new { @class = "text-danger" })
+
                 <input type="submit" class="button" value="Sign Up">
             }
-            
+
             <div class="help-text">
                 <p>By signing up, you agree to our</p>
                 <p><a href="#">Terms of service</a></p>
             </div><!--.help-text-->
         </div><!--.signup-tab-content-->
 
-        <div id="login-tab-content" class="active">
+        <div id="login-tab-content" class='@ViewBag.signinActive'>
             @*<form class="login-form" action="" method="post">*@
             @using (Html.BeginForm(new { AccountType = "SignIn" }))
             {
                 @Html.TextBoxFor(p => p.UserId, new { placeholder = "UserId", Class = "input" })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+
+
                 @Html.PasswordFor(p => p.Password, new { placeholder = "Password", Class = "input" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
                 <input type="submit" class="button" value="Login">
 
                 @*<input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username">
-                    <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
-                    <input type="checkbox" class="checkbox" id="remember_me">
-                    <label for="remember_me">Remember me</label>*@
+            <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+            <input type="checkbox" class="checkbox" id="remember_me">
+            <label for="remember_me">Remember me</label>*@
 
 
             }

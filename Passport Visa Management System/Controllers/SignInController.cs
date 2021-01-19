@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Passport_Visa_Management_System.PassportVisaManagementSystemService;
+
 
 namespace Passport_Visa_Management_System.Controllers
 {
@@ -14,6 +16,7 @@ namespace Passport_Visa_Management_System.Controllers
         public ActionResult Index()
         {
             Session["Page"] = null;
+            ViewBag.signinActive = "active";
             PassportVisaManagementSystemService.User U = new PassportVisaManagementSystemService.User();
             PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
             PassportVisaManagementSystemService.HintQuestion[] D = PVMS.FetchHintQuestion();
@@ -23,7 +26,43 @@ namespace Passport_Visa_Management_System.Controllers
         [HttpPost]
         public ActionResult Index(string AccountType, PassportVisaManagementSystemService.User U)
         {
+            ViewBag.HintQuestionDD = null;
+            PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
+            PassportVisaManagementSystemService.HintQuestion[] D = PVMS.FetchHintQuestion();
+            ViewBag.HintQuestionDD = D.ToList();
            
+            if (AccountType.ToLower() == "signup" && checkForSignUpValidation(U))
+            {
+                if (AccountType.ToLower()== "signup")
+                {
+                    ViewBag.signupActive = "active";
+                    ViewBag.signinActive = "";
+                }
+                if (AccountType.ToLower() == "signin")
+                {
+                    ViewBag.signinActive = "active";
+                    ViewBag.signupActive = "";
+
+                }
+                return View();
+            }
+            if (AccountType.ToLower() == "signin" && checkForSignInValidation(U))
+            {
+                if (AccountType.ToLower() == "signup")
+                {
+                    ViewBag.signupActive = "active";
+                    ViewBag.signinActive = "";
+                }
+                if (AccountType.ToLower() == "signin")
+                {
+                    ViewBag.signinActive = "active";
+                    ViewBag.signupActive = "";
+
+                }
+                return View();
+            }
+            //checkForSignInValidation(U);
+            //Cookies.Expires = DateTime.Now.AddSeconds(1);
             if (AccountType.ToLower() == "signup")
             {
                 Session["SignUpMsg"] = null;
@@ -92,5 +131,82 @@ namespace Passport_Visa_Management_System.Controllers
             }
 
         }
+
+        public bool checkForSignUpValidation(User U )
+        {
+            if (U.FirstName == null ||U.FirstName == "" || U.FirstName.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("FirstName", "FirstName Name cannot be empty");
+                return true;   
+            }
+            else if (U.SurName == null || U.SurName == "" || U.SurName.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("SurName", "Sur Name cannot be empty");
+                return true;
+            }
+            else if (U.DateOfBirth == null  || U.DateOfBirth.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("DateOfBirth", "Date Of Birth cannot be empty");
+                return true;
+            }
+            else if (U.Address == null || U.Address.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("Address", "Address cannot be empty");
+                return true;
+            }
+            else if (U.ContactNo == 0 || U.ContactNo.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("ContactNo", "Contact No cannot be empty");
+                return true;
+            }
+            else if (U.EmailAddress == null || U.EmailAddress.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("EmailAddress", "Email Address cannot be empty");
+                return true;
+            }
+            else if (U.Qualification == null || U.Qualification.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("Qualification", "Qualification cannot be empty");
+                return true;
+            }
+            else if (U.Gender == "-1"|| U.Gender.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("Gender", "Gender cannot be empty");
+                return true;
+            }
+            else if (U.HintQuestionId == 0 || U.HintQuestionId.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("HintQuestionDD", "Hint Question cannot be empty");
+                return true;
+            }
+            else if (U.HintAnswer == null || U.HintAnswer.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("HintAnswer", "Hint Answer cannot be empty");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool checkForSignInValidation(User U)
+        {
+            if (U.UserId == null || U.UserId == "" || U.UserId.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("UserId", "User Id cannot be empty");
+                return true;
+            }
+            else if (U.Password == null || U.Password == "" || U.Password.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("Password", "Password cannot be empty");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        }
     }
-}
