@@ -17,18 +17,18 @@
 
                         <div class="form-textbox">
                             <label for="userid">User ID</label>
-                            @Html.TextBoxFor(p => p.UserId, new { placeholder = "UserId" })
+                            @Html.TextBoxFor(p => p.UserId, new { @readonly = "readonly", @Value = @Request.Cookies["UserName"].Value.ToString(), Username = @Request.Cookies["UserName"].Value.ToString(), id = "userid" })
 
                         </div>
                         <div class="form-textbox">
-                            <label for="passportNo">Passport Number</label>
+                            <label for="passportNo">Passport No</label>
                             @*<input type="text" name="userid" id="userid" />*@
                             @*
                                 @Html.TextBoxFor(p => passs, new { placeholder = "UserId", Class = "input" })*@
                             @Html.TextBox("passportNo")
                         </div>
                         <div class="form-textbox">
-                            <label for="VisaNumber">Visa Number</label>
+                            <label for="VisaNumber">Visa No</label>
                             @Html.TextBoxFor(x => x.VisaNumber)
                         </div>
                         <div class="form-textbox">

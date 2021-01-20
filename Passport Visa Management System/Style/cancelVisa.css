@@ -227,7 +227,7 @@ h1 {
     font-size: 110px;
     color: #fff;
     opacity: 0.8;
-    right: 242px;
+    right: 160px;
     top: 45px;
     top: -50px;
     z-index: 9;
@@ -264,7 +264,7 @@ input {
     font-weight: 700;
     font-size: 14px;
     font-family: Poppins;
-    padding: 16px 10px 16px 108px;
+    padding: 16px 10px 16px 124px;
 }
 
 select {
