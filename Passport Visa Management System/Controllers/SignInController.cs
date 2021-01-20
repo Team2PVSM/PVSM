@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Passport_Visa_Management_System.PassportVisaManagementSystemService;
-
+using System.Text.RegularExpressions;
 
 namespace Passport_Visa_Management_System.Controllers
 {
@@ -134,6 +134,10 @@ namespace Passport_Visa_Management_System.Controllers
 
         public bool checkForSignUpValidation(User U )
         {
+            var age = DateTime.Now.Subtract(U.DateOfBirth).TotalDays / 365;
+            var email = DbOperation.CheckUniqueEmail(U.EmailAddress);
+            bool isEmail = Regex.IsMatch(U.EmailAddress, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+
             if (U.FirstName == null ||U.FirstName == "" || U.FirstName.ToString().Trim().Length == 0)
             {
                 ModelState.AddModelError("FirstName", "FirstName Name cannot be empty");
@@ -149,6 +153,11 @@ namespace Passport_Visa_Management_System.Controllers
                 ModelState.AddModelError("DateOfBirth", "Date Of Birth cannot be empty");
                 return true;
             }
+            else if (age <= 18)
+            {
+                ModelState.AddModelError("DateOfBirth", "Birth Date Should be greater than 18");
+                return true;
+            }
             else if (U.Address == null || U.Address.ToString().Trim().Length == 0)
             {
                 ModelState.AddModelError("Address", "Address cannot be empty");
@@ -159,9 +168,24 @@ namespace Passport_Visa_Management_System.Controllers
                 ModelState.AddModelError("ContactNo", "Contact No cannot be empty");
                 return true;
             }
+            else if (U.ContactNo.ToString().Trim().Length <= 9 || U.ContactNo.ToString().Trim().Length >= 11)
+            {
+                ModelState.AddModelError("ContactNo", "Provide Valid Number");
+                return true;
+            }
             else if (U.EmailAddress == null || U.EmailAddress.ToString().Trim().Length == 0)
             {
                 ModelState.AddModelError("EmailAddress", "Email Address cannot be empty");
+                return true;
+            }
+            else if(email != null)
+            {
+                ModelState.AddModelError("EmailAddress", "Email ID is Already Registered");
+                return true;
+            }
+            else if (isEmail == false)
+            {
+                ModelState.AddModelError("EmailAddress", "Enter Valid Email ID");
                 return true;
             }
             else if (U.Qualification == null || U.Qualification.ToString().Trim().Length == 0)

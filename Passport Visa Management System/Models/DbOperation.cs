@@ -112,5 +112,10 @@ namespace Passport_Visa_Management_System.Models
             Service1Client PVMS = new Service1Client();
             return PVMS.FetchHintQuestionByUserName(username);
         }
+		public static string CheckUniqueEmail(string email)
+        {
+            Service1Client PVMS = new Service1Client();
+            return PVMS.EmailAddress(email);
+        }
     }
 }

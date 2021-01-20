@@ -27,7 +27,7 @@
                 @Html.ValidationMessageFor(model => model.SurName, "", new { @class = "text-danger" })
 
 
-                @Html.TextBoxFor(x => x.DateOfBirth, new { placeholder = "Date Of Birth", Class = "input" });
+                @Html.TextBoxFor(x => x.DateOfBirth, new { placeholder = "Date Of Birth", Class = "input", type = "date" });
                 @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
 
                 @Html.TextBoxFor(x => x.Address, new { placeholder = "Address", Class = "input" });
