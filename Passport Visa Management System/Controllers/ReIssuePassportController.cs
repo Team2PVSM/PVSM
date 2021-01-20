@@ -29,8 +29,21 @@ namespace Passport_Visa_Management_System.Controllers
             ViewBag.CountryDD = D.ToList();
             int userId = DbOperation.FetchIdByUserName(username);
             A.UserId = userId;
-            DbOperation.ReissuePassport(A);
+            bool successful = DbOperation.ReissuePassport(A);
+            if (successful)
+            {
+                var json = DbOperation.fetchApplyPassportbyUserId(userId);
+                Session["PassportNumber"] = json[0].PassportNumber;
+                Session["Amount"] = json[0].Amount;
+                Session["successMsg"] = "<b>Passport re issue is successfully done.</b>\n Amount to be paid is Rs." + json[0].Amount + " Passport issue date is " + json[0].IssueDate.ToString("dd-MM-yyyy") + " and expiry date is " + json[0].ExpiryDate.ToString("dd-MM-yyyy");
+
+                return Redirect("/ReIssuePassportSuccess");
+            }
+            else
+            {
+
             return View();
+            }
         }
         public string GetStateByCountryId(int selectedCountry)
         {

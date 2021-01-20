@@ -13,6 +13,11 @@ namespace Passport_Visa_Management_System.Controllers
         // GET: VisaCancellation
         public ActionResult Index()
         {
+            var username = Request.Cookies["UserName"].Value.ToString();
+            int userId = DbOperation.FetchIdByUserName(username);
+            Session["PassportNumber"]= DbOperation.FetchPassportNumber(userId);
+            Session["VisaNumber"] = DbOperation.FetchVisaNumber(userId);
+            
             ApplyVisa AV = new ApplyVisa();
             return View(AV);
         }
@@ -24,9 +29,24 @@ namespace Passport_Visa_Management_System.Controllers
             string us = DbOperation.FetchPassportNumber(userId);
             string Visa = DbOperation.FetchVisaNumber(userId);
             AV.VisaNumber = Visa;
+            AV.UserId = userId;
+            
+
+
             Session["PassportNumber"] = us;
-            DbOperation.VisaCancel(AV);
-            return View();
+            bool successful = DbOperation.VisaCancel(AV);
+            if (successful)
+            {
+                var json = DbOperation.fetchApplyVisabyUserId(userId);
+                Session["successMsg"] = "Your request has been submitted successfully. Please pay "+json[0].CancellationCharge + " to complete the cancellation process";
+
+                return Redirect("/CancelVisaSuccess");
+            }
+            else
+            {
+
+                return View();
+            }
         }
     }
 }

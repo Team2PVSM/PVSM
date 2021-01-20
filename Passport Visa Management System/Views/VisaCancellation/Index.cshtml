@@ -25,11 +25,11 @@
                             @*<input type="text" name="userid" id="userid" />*@
                             @*
                                 @Html.TextBoxFor(p => passs, new { placeholder = "UserId", Class = "input" })*@
-                            @Html.TextBox("passportNo")
+                            @Html.TextBox("passportNo",  Session["PassportNumber"].ToString())
                         </div>
                         <div class="form-textbox">
                             <label for="VisaNumber">Visa No</label>
-                            @Html.TextBoxFor(x => x.VisaNumber)
+                            @Html.TextBoxFor(x => x.VisaNumber, new { @Value = Session["VisaNumber"].ToString() })
                         </div>
                         <div class="form-textbox">
                             <label for="issuedate">Issue Date</label>
