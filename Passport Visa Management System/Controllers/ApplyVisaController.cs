@@ -22,6 +22,9 @@ namespace Passport_Visa_Management_System.Controllers
         [HttpPost]
         public ActionResult Index(ApplyVisa AV)
         {
+            var username = Request.Cookies["UserName"].Value.ToString();
+            int userId = DbOperation.FetchIdByUserName(username);
+            AV.UserId = userId;
             DbOperation.ApplyingVisa(AV);
             return View();
         }

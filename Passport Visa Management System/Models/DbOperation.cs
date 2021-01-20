@@ -75,5 +75,21 @@ namespace Passport_Visa_Management_System.Models
             Service1Client PVMS = new Service1Client();
             return PVMS.ApplyForVisa(A);
         }
+        public static bool VisaCancel(ApplyVisa A)
+        {
+            Service1Client PVMS = new Service1Client();
+            return PVMS.CancelVisa(A);
+        }
+        public static string FetchPassportNumber(int id)
+        {
+            Service1Client PVMS = new Service1Client();
+            string str = PVMS.getPassportNumberByUserName(id);
+            return str;
+        }
+        public static bool Authenticity(User U)
+        {
+            Service1Client PVMS = new Service1Client();
+            return PVMS.AuthenticationQues(U);
+        }
     }
 }

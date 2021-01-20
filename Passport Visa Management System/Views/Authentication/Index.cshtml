@@ -1,0 +1,35 @@
+﻿@model Passport_Visa_Management_System.PassportVisaManagementSystemService.User
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    <link href="~/Style/Authentication.css" rel="stylesheet" />
+    <body id="applypassportbody">
+        <div class="main">
+            <h1>Verify ??</h1>
+            <div class="containerpassport">
+                <div class="apply-passport-content">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-textbox">
+                            <label for="userid">Hint Question</label>
+                            @if (ViewBag.HintQuestionDD != null)
+                            {
+                                @Html.DropDownListFor(m => m.HintQuestionId, new SelectList(ViewBag.HintQuestionDD, "Id", "Questions", "Select"))
+                            }
+                        </div>
+                        <div class="form-textbox">
+                            <label for="Answer">Answer</label>
+                            @Html.TextBoxFor(x => x.HintAnswer)
+                        </div>
+                        <div class="Apply">
+                            <input type="submit" name="submit" id="submit" class="submit" value="Submit" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </body>
+}

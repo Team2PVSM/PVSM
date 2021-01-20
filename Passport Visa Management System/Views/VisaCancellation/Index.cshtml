@@ -5,11 +5,7 @@
 
 @using (Html.BeginForm())
 {
-    @*<script>
-            document.getElementById("issuedate").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getDate()
-        </script>*@
-
-    <link href="~/Style/applyPassport.css" rel="stylesheet" />
+    <link href="~/Style/cancelVisa.css" rel="stylesheet" />
     <body id="applypassportbody">
         <div class="main">
 
@@ -17,34 +13,33 @@
             <div class="containerpassport">
                 <div class="apply-passport-content">
                     @using (Html.BeginForm())
-                    { 
-                    
-                    <div class="form-textbox">
-                        <label for="userid">User ID</label>
-                        @Html.TextBoxFor(p => p.UserId, new { placeholder = "UserId"})
+                    {
 
-                    </div>
-                    <div class="form-textbox">
-                        <label for="userid">Passport Number</label>
-                        @*<input type="text" name="userid" id="userid" />*@
-                      @*
-                          @Html.TextBoxFor(p => passs, new { placeholder = "UserId", Class = "input" })*@
-
-                    </div>
                         <div class="form-textbox">
-                            <label for="userid">Visa Number</label>
-                            <input type="text" name="userid" id="userid" />
+                            <label for="userid">User ID</label>
+                            @Html.TextBoxFor(p => p.UserId, new { placeholder = "UserId" })
+
                         </div>
                         <div class="form-textbox">
-                            <label for="userid">Date of Issue</label>
-                            <input type="text" name="userid" id="userid" />
+                            <label for="passportNo">Passport Number</label>
+                            @*<input type="text" name="userid" id="userid" />*@
+                            @*
+                                @Html.TextBoxFor(p => passs, new { placeholder = "UserId", Class = "input" })*@
+                            @Html.TextBox("passportNo")
                         </div>
-
+                        <div class="form-textbox">
+                            <label for="VisaNumber">Visa Number</label>
+                            @Html.TextBoxFor(x => x.VisaNumber)
+                        </div>
+                        <div class="form-textbox">
+                            <label for="issuedate">Issue Date</label>
+                            @Html.TextBoxFor(x => x.DateOfIssue, new { id = "issuedate", type = "date" })
+                        </div>
                         <div class="Apply">
                             <input type="submit" name="submit" id="submit" class="submit" value="Cancel Visa" />
                         </div>
                     }
-                    </div>
+                </div>
             </div>
 
         </div>
