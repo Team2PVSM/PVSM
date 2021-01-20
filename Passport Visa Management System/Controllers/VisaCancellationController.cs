@@ -22,7 +22,8 @@ namespace Passport_Visa_Management_System.Controllers
             var username = Request.Cookies["UserName"].Value.ToString();
             int userId = DbOperation.FetchIdByUserName(username);
             string us = DbOperation.FetchPassportNumber(userId);
-            
+            string Visa = DbOperation.FetchVisaNumber(userId);
+            AV.VisaNumber = Visa;
             Session["PassportNumber"] = us;
             DbOperation.VisaCancel(AV);
             return View();
