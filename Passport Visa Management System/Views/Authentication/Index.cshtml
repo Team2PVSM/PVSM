@@ -15,10 +15,11 @@
                     {
                         <div class="form-textbox">
                             <label for="userid">Hint Question</label>
-                            @if (ViewBag.HintQuestionDD != null)
-                            {
-                                @Html.DropDownListFor(m => m.HintQuestionId, new SelectList(ViewBag.HintQuestionDD, "Id", "Questions", "Select"))
-                            }
+                            @*@if (ViewBag.HintQuestionDD != null)
+                                {
+                                    @Html.DropDownListFor(m => m.HintQuestionId, new SelectList(ViewBag.HintQuestionDD, "Id", "Questions", "Select"))
+                                }*@
+                            @Html.TextBox("HintQuestion", TempData["HintQuestion"], new { @readonly = "readonly" })
                         </div>
                         <div class="form-textbox">
                             <label for="Answer">Answer</label>
@@ -27,6 +28,8 @@
                         <div class="Apply">
                             <input type="submit" name="submit" id="submit" class="submit" value="Submit" />
                         </div>
+                        <label for="Answer" class="errorMsg">@TempData["Msg"]</label>
+
                     }
                 </div>
             </div>

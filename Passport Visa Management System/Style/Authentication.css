@@ -257,7 +257,7 @@ input {
     font-weight: 700;
     font-size: 14px;
     font-family: Poppins;
-    padding: 16px 10px 16px 108px;
+    padding: 16px 10px 16px 131px;
 }
 
 select {
@@ -346,6 +346,11 @@ input:-webkit-autofill {
     input {
         padding: 16px 30px 16px 100px;
     }
+}
+.errorMsg {
+    margin-top: 27px;
+    color: red;
+    font-size: 14px;
 }
 
 /*# sourceMappingURL=style.css.map */
