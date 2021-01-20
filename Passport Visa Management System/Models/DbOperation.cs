@@ -91,7 +91,18 @@ namespace Passport_Visa_Management_System.Models
             Service1Client PVMS = new Service1Client();
             return PVMS.AuthenticationQues(U);
         }
-        public static string FetchVisaNumber(int id)
+        public static dynamic fetchApplyVisabyUserId(int UserId)
+        {
+            PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
+            string str = PVMS.fetchApplyVisabyUserId(UserId);
+            return JsonConvert.DeserializeObject<List<PassportVisaManagementSystemService.ApplyVisa>>(str);
+        }
+        public static string fetchCountryStateCityById(int country)
+        {
+            PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
+            return  PVMS.fetchCountryStateCityById(country);
+        }
+		public static string FetchVisaNumber(int id)
         {
             Service1Client PVMS = new Service1Client();
             return PVMS.FetchVisaNumber(id);
