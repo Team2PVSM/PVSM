@@ -16,11 +16,20 @@ namespace Passport_Visa_Management_System.Controllers
         {
             var username = Request.Cookies["UserName"].Value.ToString();
             int userId = DbOperation.FetchIdByUserName(username);
-            Session["PassportNumber"]= DbOperation.FetchPassportNumber(userId);
-            Session["VisaNumber"] = DbOperation.FetchVisaNumber(userId);
-            
-            ApplyVisa AV = new ApplyVisa();
-            return View(AV);
+            if (!DbOperation.CheckUserHaveApplyVisa(userId))
+            {
+                return Redirect("/CancelVisaError");
+            }
+            else
+            {
+                Session["PassportNumber"] = DbOperation.FetchPassportNumber(userId);
+                Session["VisaNumber"] = DbOperation.FetchVisaNumber(userId);
+
+                ApplyVisa AV = new ApplyVisa();
+                return View(AV);
+
+            }
+
         }
         [HttpPost]
         public ActionResult Index(ApplyVisa AV)
@@ -31,7 +40,7 @@ namespace Passport_Visa_Management_System.Controllers
             string Visa = DbOperation.FetchVisaNumber(userId);
             AV.VisaNumber = Visa;
             AV.UserId = userId;
-            
+
 
 
             Session["PassportNumber"] = us;
@@ -39,7 +48,7 @@ namespace Passport_Visa_Management_System.Controllers
             if (successful)
             {
                 var json = DbOperation.fetchApplyVisabyUserId(userId);
-                Session["successMsg"] = "Your request has been submitted successfully. Please pay "+json[0].CancellationCharge + " to complete the cancellation process";
+                Session["successMsg"] = "Your request has been submitted successfully. Please pay " + json[0].CancellationCharge + " to complete the cancellation process";
 
                 return Redirect("/CancelVisaSuccess");
             }

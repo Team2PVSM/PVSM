@@ -14,11 +14,21 @@ namespace Passport_Visa_Management_System.Controllers
         //[Authorize]
         public ActionResult Index()
         {
+            var username = Request.Cookies["UserName"].Value.ToString();
+            int userId = DbOperation.FetchIdByUserName(username);
+            if (!DbOperation.CheckUserHaveApplyPassport(userId))
+            {
+                return Redirect("/ApplyVisaError");
+            }
+            else
+            {
             ApplyVisa V = new ApplyVisa();
             Service1Client PVMS = new Service1Client();
             Country[] D = PVMS.FetchCountries();
             ViewBag.CountryDD = D.ToList();
             return View(V);
+                
+            }
         }
         [HttpPost]
         public ActionResult Index(ApplyVisa AV)
