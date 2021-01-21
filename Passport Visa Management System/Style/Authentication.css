@@ -220,7 +220,7 @@ h1 {
     font-size: 110px;
     color: #fff;
     opacity: 0.8;
-    right: 330px;
+    right: 355px;
     top: 45px;
     top: -50px;
     z-index: 9;
@@ -252,7 +252,7 @@ h1 {
 
 input {
     border: solid 2px #ebebeb;
-    box-sizing: border-box;
+    box-sizing: content-box;
     width: 100%;
     font-weight: 700;
     font-size: 14px;

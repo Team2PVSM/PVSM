@@ -39,6 +39,10 @@ namespace Passport_Visa_Management_System.Controllers
             var username = Request.Cookies["UserName"].Value.ToString();
             int userId = DbOperation.FetchIdByUserName(username);
             AV.UserId = userId;
+            if (checkForApplyPassportValidation(AV))
+            {
+                return View();
+            }
             bool successful =DbOperation.ApplyingVisa(AV);
             if (successful)
             {
@@ -50,11 +54,38 @@ namespace Passport_Visa_Management_System.Controllers
             }
             else
             {
-
                 return View();
-
             }
 
+        }
+
+        public bool checkForApplyPassportValidation(ApplyVisa U)
+        {
+            //if (U.UserId ==0  || U.UserId.ToString().Trim().Length == 0)
+            //{
+            //    ModelState.AddModelError("UserId", "User Id cannot be empty");
+            //    return true;
+            //}
+            if (U.CountryId == 0 || U.CountryId.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("CountryId", "Select Country");
+                return true;
+            }
+            
+            else if (U.DateOfApplication == null || U.DateOfApplication.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("applicationdate", "Fill Date");
+                return true;
+            }
+            else if (U.Occupation == "-1" || U.Occupation.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("Occupation", "Select Occupation");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -22,11 +22,15 @@
                         @if (ViewBag.CountryDD != null)
                         {
                             @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CountryDD, "CountryId", "CountryName"))
+                            <div>
+                                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                            </div>
                         }
                     </div>
                     <div class="form-textbox">
                         <label for="applicationdate">Date</label>
                         @Html.TextBoxFor(x => x.DateOfApplication, new { id = "applicationdate", type = "date" })
+                        @Html.ValidationMessageFor(model => model.DateOfApplication, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-textbox">
                         <label for="Occupation">Occupation</label>
@@ -40,6 +44,7 @@
                             new SelectListItem { Value = "Self Employee" , Text = "Self Employee" },
                             new SelectListItem { Value = "Retired Employee" , Text = "Retired Employee" }
                             })
+                        @Html.ValidationMessageFor(model => model.Occupation, "", new { @class = "text-danger" })
                     </div>
                     <div class="Apply">
                         <input type="submit" name="submit" id="submit" class="submit" value="Apply" />
