@@ -11,6 +11,7 @@ namespace Passport_Visa_Management_System.Controllers
     public class ApplyVisaController : Controller
     {
         // GET: ApplyVisa
+        //[Authorize]
         public ActionResult Index()
         {
             ApplyVisa V = new ApplyVisa();

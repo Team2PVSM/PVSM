@@ -13,6 +13,7 @@ namespace Passport_Visa_Management_System.Controllers
     public class SignInController : Controller
     {
         // GET: SignIn
+        [AllowAnonymous]
         public ActionResult Index()
         {
             Session["Page"] = null;
@@ -24,6 +25,7 @@ namespace Passport_Visa_Management_System.Controllers
             return View(U);
         }
         [HttpPost]
+        //[AllowAnonymous]
         public ActionResult Index(string AccountType, PassportVisaManagementSystemService.User U)
         {
             ViewBag.HintQuestionDD = null;
@@ -131,7 +133,7 @@ namespace Passport_Visa_Management_System.Controllers
             }
 
         }
-
+        //[AllowAnonymous]
         public bool checkForSignUpValidation(User U )
         {
             var age = DateTime.Now.Subtract(U.DateOfBirth).TotalDays / 365;
@@ -213,7 +215,7 @@ namespace Passport_Visa_Management_System.Controllers
                 return false;
             }
         }
-
+        //[AllowAnonymous]
         public bool checkForSignInValidation(User U)
         {
             if (U.UserId == null || U.UserId == "" || U.UserId.ToString().Trim().Length == 0)

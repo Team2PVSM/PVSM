@@ -11,6 +11,7 @@ namespace Passport_Visa_Management_System.Controllers
     public class AuthenticationController : Controller
     {
         // GET: Authentication
+        //[Authorize]
         public ActionResult Index()
         {
             User U = new User();

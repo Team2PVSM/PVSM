@@ -9,6 +9,7 @@ namespace Passport_Visa_Management_System.Controllers
     public class ApplyVisaSuccessController : Controller
     {
         // GET: ApplyVisaSuccess
+        //[Authorize]
         public ActionResult Index()
         {
             return View();

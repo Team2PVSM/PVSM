@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace Passport_Visa_Management_System.Controllers
 {
-    public class UserHomeController : Controller
+    public class ReissuePassportErrorController : Controller
     {
-        // GET: UserHome
-        //[Authorize]
+        // GET: ReissuePassportError
         public ActionResult Index()
         {
             return View();

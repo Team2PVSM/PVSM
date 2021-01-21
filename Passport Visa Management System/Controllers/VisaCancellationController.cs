@@ -11,6 +11,7 @@ namespace Passport_Visa_Management_System.Controllers
     public class VisaCancellationController : Controller
     {
         // GET: VisaCancellation
+        //[Authorize]
         public ActionResult Index()
         {
             var username = Request.Cookies["UserName"].Value.ToString();

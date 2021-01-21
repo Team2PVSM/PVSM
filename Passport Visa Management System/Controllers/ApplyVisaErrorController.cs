@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace Passport_Visa_Management_System.Controllers
 {
-    public class UserHomeController : Controller
+    public class ApplyVisaErrorController : Controller
     {
-        // GET: UserHome
-        //[Authorize]
+        // GET: ApplyVisaError
         public ActionResult Index()
         {
             return View();

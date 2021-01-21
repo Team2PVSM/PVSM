@@ -9,6 +9,7 @@ namespace Passport_Visa_Management_System.Controllers
     public class ReIssuePassportSuccessController : Controller
     {
         // GET: ReIssuePassportSuccess
+        //[Authorize]
         public ActionResult Index()
         {
             return View();
