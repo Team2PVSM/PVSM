@@ -34,6 +34,7 @@
                         <div class="form-textbox">
                             <label for="issuedate">Issue Date</label>
                             @Html.TextBoxFor(x => x.DateOfIssue, new { id = "issuedate", type = "date" })
+                            @Html.ValidationMessageFor(model => model.DateOfIssue, "", new { @class = "text-danger" })
                         </div>
                         <div class="Apply">
                             <input type="submit" name="submit" id="submit" class="submit" value="Cancel Visa" />

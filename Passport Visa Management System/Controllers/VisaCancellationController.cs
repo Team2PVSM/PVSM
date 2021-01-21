@@ -40,10 +40,11 @@ namespace Passport_Visa_Management_System.Controllers
             string Visa = DbOperation.FetchVisaNumber(userId);
             AV.VisaNumber = Visa;
             AV.UserId = userId;
-
-
-
             Session["PassportNumber"] = us;
+            if (checkForCancelVisaValidation(AV))
+            {
+                return View();
+            }
             bool successful = DbOperation.VisaCancel(AV);
             if (successful)
             {
@@ -56,6 +57,18 @@ namespace Passport_Visa_Management_System.Controllers
             {
 
                 return View();
+            }
+        }
+        public bool checkForCancelVisaValidation(ApplyVisa U)
+        {
+            if (U.DateOfIssue == null || U.DateOfIssue.ToString().Trim().Length == 0)
+            {
+                ModelState.AddModelError("issuedate", "Fill Date");
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

@@ -64,34 +64,34 @@ namespace Passport_Visa_Management_System.Controllers
         }
         public bool checkForApplyPassportValidation(ApplyPassport U)
         {
-            //if (U.UserId ==0  || U.UserId.ToString().Trim().Length == 0)
-            //{
-            //    ModelState.AddModelError("UserId", "User Id cannot be empty");
-            //    return true;
-            //}
              if (U.CountryId ==0  || U.CountryId.ToString().Trim().Length == 0)
             {
-                ModelState.AddModelError("CountryId", "Country Id cannot be empty");
+                ModelState.AddModelError("CountryId", "Country can't be empty");
                 return true;
             }
             else if (U.StateId == 0 || U.StateId.ToString().Trim().Length == 0)
             {
-                ModelState.AddModelError("StateId", "State Id cannot be empty");
+                ModelState.AddModelError("StateId", "State can't be empty");
                 return true;
             }
             else if (U.CityId == 0 || U.CityId.ToString().Trim().Length == 0)
             {
-                ModelState.AddModelError("CityId", "City  cannot be empty");
+                ModelState.AddModelError("CityId", "City can't be empty");
                 return true;
             }
             else if (U.Pin == 0 || U.Pin.ToString().Trim().Length == 0)
             {
-                ModelState.AddModelError("Pin", "Pin cannot be empty");
+                ModelState.AddModelError("Pin", "Pin can't be empty");
+                return true;
+            }
+            else if(U.Pin.ToString().Trim().Length >= 7 || U.Pin.ToString().Trim().Length <= 5)
+            {
+                ModelState.AddModelError("Pin", "Pin Should be of 6 Digits");
                 return true;
             }
             else if (U.IssueDate == null || U.IssueDate.ToString().Trim().Length == 0)
             {
-                ModelState.AddModelError("IssueDate", "Issue Date cannot be empty");
+                ModelState.AddModelError("IssueDate", "Fill Date");
                 return true;
             }
             else

@@ -4,13 +4,14 @@
 }
 
 @using (Html.BeginForm())
-{@*<script>
+{
+    @*<script>
             document.getElementById("issuedate").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getDate()
         </script>*@
 
-<link href="~/Style/applyPassport.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-                <script>
+    <link href="~/Style/applyPassport.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
         $(function () {
             $('select#selectedCountry').change(function () {
                 $('#m').val('Select');
@@ -18,7 +19,6 @@
                 var selectedCountry = $(this).val();
                 $.ajax
                     ({
-
                         type: "POST",
                         url: '/ReIssuePassport/GetStateByCountryId',
                         //url: '@Url.Action("fetchEmp")',
@@ -81,74 +81,82 @@
                 $("#CityId").val(cityId);
             })
         })
-                </script>
-                <body id="applypassportbody">
-                    <div class="main">
+    </script>
+    <body id="applypassportbody">
+        <div class="main">
 
-                        <h1>Re-Issue Passport</h1>
-                        <div class="containerpassport">
-                            <div class="apply-passport-content">
-                                <div class="form-textbox">
-                                    <label for="reason">Reason</label>
-                                    @Html.TextBox("reason")
+            <h1>Re-Issue Passport</h1>
+            <div class="containerpassport">
+                <div class="apply-passport-content">
+                    <div class="form-textbox">
+                        <label for="reason">Reason</label>
+                        @Html.TextBox("reason")
+                        @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                    </div>
 
-                                </div>
-
-                                <div class="form-textbox">
-                                    <label for="userid">User ID</label>
-                                    @Html.TextBoxFor(x => x.UserId, new { @readonly = "readonly", @Value = @Request.Cookies["UserName"].Value.ToString(), Username = @Request.Cookies["UserName"].Value.ToString(), id = "userid" })
-
-                                </div>
-
-                                <div class="form-textbox">
-                                    <label for="country">Country</label>
-                                    @if (ViewBag.CountryDD != null)
-                                    {
-                                        @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CountryDD, "CountryId", "CountryName"), new { @id = "selectedCountry" })
-                                    }
-                                </div>
-                                <div class="form-textbox">
-                                    <label for="state">State</label>
-                                    <select id="m">
-                                    </select>
-                                    @Html.HiddenFor(x => x.StateId)
-                                </div>
-                                <div class="form-textbox">
-                                    <label for="city">City</label>
-                                    <select id="m1">
-                                    </select>
-                                    @Html.HiddenFor(x => x.CityId)
-                                </div>
-
-                                <div class="form-textbox">
-                                    <label for="pass">Pin</label>
-                                    @Html.TextBoxFor(x => x.Pin, new { id = "pass" })
-                                </div>
-                                <div class="form-textbox">
-                                    <label for="issuedate">Issue Date</label>
-                                    @Html.TextBoxFor(x => x.IssueDate, new { id = "issuedate", type = "date" })
-                                </div>
-                                <h4>Type of Service</h4>
-                                <div class="form-radio">
-                                    @Html.RadioButtonFor(x => x.ServiceType, "Normal", new { @checked = true, @id = "normal" })
-                                    <label for="normal">Normal</label>
-                                    @Html.RadioButtonFor(x => x.ServiceType, "Tatkal", new { @id = "tatkal" })
-                                    <label for="tatkal">Tatkal</label>
-                                </div>
-                                <h4>Type of Booklet</h4>
-                                <div class="form-radio">
-                                    @Html.RadioButtonFor(x => x.BookletType, "30Pages", new { @checked = true, @id = "30Pages" })
-                                    <label for="30Pages">30 Pages</label>
-                                    @Html.RadioButtonFor(x => x.BookletType, "60Pages", new { @id = "60Pages" })
-                                    <label for="60Pages">60 Pages</label>
-                                </div>
-
-                                <div class="Apply">
-                                    <input type="submit" name="submit" id="submit" class="submit" value="Apply" />
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-textbox">
+                        <label for="userid">User ID</label>
+                        @Html.TextBoxFor(x => x.UserId, new { @readonly = "readonly", @Value = @Request.Cookies["UserName"].Value.ToString(), Username = @Request.Cookies["UserName"].Value.ToString(), id = "userid" })
 
                     </div>
-                </body>
-            }
+
+                    <div class="form-textbox">
+                         <label for="country">Country</label>
+                         @if (ViewBag.CountryDD != null)
+                          {
+                            @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CountryDD, "CountryId", "CountryName"), new { @id = "selectedCountry" })
+                            <div>
+
+                                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                            </div>
+                          }
+                    </div>
+                    <div class="form-textbox">
+                        <label for="state">State</label>
+                        <select id="m">
+                        </select>
+                        @Html.HiddenFor(x => x.StateId)
+                        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-textbox">
+                        <label for="city">City</label>
+                        <select id="m1">
+                        </select>
+                        @Html.HiddenFor(x => x.CityId)
+                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="pass">Pin</label>
+                        @Html.TextBoxFor(x => x.Pin, new { id = "pass" })
+                        @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-textbox">
+                        <label for="issuedate">Issue Date</label>
+                        @Html.TextBoxFor(x => x.IssueDate, new { id = "issuedate", type = "date" })
+                        @Html.ValidationMessageFor(model => model.IssueDate, "", new { @class = "text-danger" })
+                    </div>
+                    <h4>Type of Service</h4>
+                    <div class="form-radio">
+                        @Html.RadioButtonFor(x => x.ServiceType, "Normal", new { @checked = true, @id = "normal" })
+                        <label for="normal">Normal</label>
+                        @Html.RadioButtonFor(x => x.ServiceType, "Tatkal", new { @id = "tatkal" })
+                        <label for="tatkal">Tatkal</label>
+                    </div>
+                    <h4>Type of Booklet</h4>
+                    <div class="form-radio">
+                        @Html.RadioButtonFor(x => x.BookletType, "30Pages", new { @checked = true, @id = "30Pages" })
+                        <label for="30Pages">30 Pages</label>
+                        @Html.RadioButtonFor(x => x.BookletType, "60Pages", new { @id = "60Pages" })
+                        <label for="60Pages">60 Pages</label>
+                    </div>
+
+                    <div class="Apply">
+                        <input type="submit" name="submit" id="submit" class="submit" value="Apply" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+}
