@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Style/SignIn.css" rel="stylesheet" />
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js" rel="stylesheet" />*@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    
+    <link href="~/Style/navBar.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/User/SignIn.js"></script>
+    <script src="~/Scripts/User/navBar.js"></script>
+</head>
+<body>
+    <!--Idea from: https://codepen.io/dgknca/pen/ExYGWJw-->
+    <nav class="navigation-tab" id="nav_container">
+        <div class="navigation-tab-item active">
+            <i class="fas fa-book navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Records</span>
+        </div>
+         <div class="navigation-tab-item">
+            <i class="fas fa-exclamation-triangle navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Incidents</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-lock navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">@Html.ActionLink("Home", "Index", "Home")</span>
+        </div>
+        @*<div class="navigation-tab-item">
+            <i class="fas fa-user-md navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Medical</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-images navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Images</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-shield-alt navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Blocking</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-compass navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Tracking</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fab fa-wpforms navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Forms</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-ellipsis-h navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Other</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-info navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Extra</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-info navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Extra</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-info navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Extra</span>
+        </div>
+        <div class="navigation-tab-item">
+            <i class="fas fa-info navigation-tab__icon"></i>
+            <span class="navigation-tab__txt">Extra</span>
+        </div>*@
+        <div class="navigation-tab-overlay"></div>
+    </nav>
+
+    <div class="container body-content" style="overflow: auto">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+   @RenderSection("scripts", required: false)
+</body>
+</html>
