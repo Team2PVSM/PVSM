@@ -9,6 +9,7 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script>
         $(function () {
+            $("#selectedCountry").val("-1");
             $('select#selectedCountry').change(function () {
                 $('#m').val('Select');
                 $('#m').find('option').remove()
@@ -98,7 +99,7 @@
                         <label for="country">Country</label>
                         @if (ViewBag.CountryDD != null)
                         {
-                            @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CountryDD, "CountryId", "CountryName"), new { @id = "selectedCountry" })
+                            @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CountryDD, "Value","Text" ), new { @id = "selectedCountry" })
                            <div>
 
                             @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })

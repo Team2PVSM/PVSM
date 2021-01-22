@@ -14,11 +14,17 @@ namespace Passport_Visa_Management_System.Controllers
         //[Authorize]
         public ActionResult Index()
         {
-            ApplyPassport C = new ApplyPassport();
-            Service1Client PVMS = new Service1Client();
-            Country[] D = PVMS.FetchCountries();
-            ViewBag.CountryDD = D.ToList();
-            return View(C);
+                ApplyPassport C = new ApplyPassport();
+                Service1Client PVMS = new Service1Client();
+                Country[] D = PVMS.FetchCountries();
+                List<SelectListItem> CountrynewList = new List<SelectListItem>();
+                CountrynewList.Add(new SelectListItem { Text = "Select Country", Value = "-1" });
+                for (var i = 0; i < D.Length; i++)
+                {
+                    CountrynewList.Add(new SelectListItem { Text = D[i].CountryName, Value = D[i].CountryId.ToString() });
+                }
+                ViewBag.CountryDD = CountrynewList.ToList();
+                return View(C);
         }
         [HttpPost]
         public ActionResult Index(ApplyPassport A)
@@ -28,28 +34,40 @@ namespace Passport_Visa_Management_System.Controllers
             ViewBag.CountryDD = null;
             Service1Client PVMS = new Service1Client();
             Country[] D = PVMS.FetchCountries();
-            ViewBag.CountryDD = D.ToList();
+            List<SelectListItem> CountrynewList = new List<SelectListItem>();
+            CountrynewList.Clear();
+            CountrynewList.Add(new SelectListItem { Text = "Select Country", Value = "-1" });
+            for (var i = 0; i < D.Length; i++)
+            {
+                CountrynewList.Add(new SelectListItem { Text = D[i].CountryName, Value = D[i].CountryId.ToString() });
+            }
+            ViewBag.CountryDD = CountrynewList.ToList();
             if (checkForApplyPassportValidation(A))
             {
                 return View();
             }
             int userId = DbOperation.FetchIdByUserName(username);
-            A.UserId = userId;
-            bool successful = DbOperation.ApplyPassportNew(A);
-            if (successful)
+            if (DbOperation.CheckUserHaveApplyPassport(userId))
             {
-                var json = DbOperation.fetchApplyPassportbyUserId(userId);
-                Session["PassportNumber"] = json[0].PassportNumber;
-                Session["Amount"] = json[0].Amount;
-                Session["successMsg"] = "<b>Need the passport number while giving payment? Please note down your Id \n </b> \n" + json[0].PassportNumber + ".Passport application cost is Rs." + json[0].Amount;
-
-                return Redirect("/ApplyPassportSuccess");
+                return Redirect("/ApplyPassportError");
             }
             else
             {
+                A.UserId = userId;
+                bool successful = DbOperation.ApplyPassportNew(A);
+                if (successful)
+                {
+                    var json = DbOperation.fetchApplyPassportbyUserId(userId);
+                    Session["PassportNumber"] = json[0].PassportNumber;
+                    Session["Amount"] = json[0].Amount;
+                    Session["successMsg"] = "<b>Need the passport number while giving payment? Please note down your Id \n </b> \n" + json[0].PassportNumber + ".Passport application cost is Rs." + json[0].Amount;
 
-                return View();
-
+                    return Redirect("/ApplyPassportSuccess");
+                }
+                else
+                {
+                    return View();
+                }
             }
         }
         public string GetStateByCountryId(int selectedCountry)
@@ -64,7 +82,7 @@ namespace Passport_Visa_Management_System.Controllers
         }
         public bool checkForApplyPassportValidation(ApplyPassport U)
         {
-             if (U.CountryId ==0  || U.CountryId.ToString().Trim().Length == 0)
+             if (U.CountryId == -1  || U.CountryId.ToString().Trim().Length == 0)
             {
                 ModelState.AddModelError("CountryId", "Country can't be empty");
                 return true;
