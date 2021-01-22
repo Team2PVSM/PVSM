@@ -17,6 +17,12 @@ namespace Passport_Visa_Management_System.Controllers
         public ActionResult Index()
         {
             Session["Page"] = null;
+            Session.Clear();
+            Session.Abandon();
+            if (Request.Cookies["UserName"] != null)
+            {
+                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+            }
             ViewBag.signinActive = "active";
             PassportVisaManagementSystemService.User U = new PassportVisaManagementSystemService.User();
             PassportVisaManagementSystemService.Service1Client PVMS = new PassportVisaManagementSystemService.Service1Client();
