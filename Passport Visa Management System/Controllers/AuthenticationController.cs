@@ -14,6 +14,10 @@ namespace Passport_Visa_Management_System.Controllers
         //[Authorize]
         public ActionResult Index()
         {
+            if (Request.Cookies["UserName"] == null)
+            {
+                return Redirect("/SignIn");
+            }
             User U = new User();
             Service1Client PVMS = new Service1Client();
             //HintQuestion[] D = PVMS.FetchHintQuestion();

@@ -12,6 +12,10 @@ namespace Passport_Visa_Management_System.Controllers
         //[Authorize]
         public ActionResult Index()
         {
+            if (Request.Cookies["UserName"] == null)
+            {
+                return Redirect("/SignIn");
+            }
             return View();
         }
     }

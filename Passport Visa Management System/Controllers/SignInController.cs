@@ -123,7 +123,7 @@ namespace Passport_Visa_Management_System.Controllers
                     }
                     else if (userList[0].ApplyType.ToLower() == "visa")
                     {
-                        return Redirect("/ApplyVisa");
+                        return Redirect("/ApplyPassport");
 
                     }
                     else

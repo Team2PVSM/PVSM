@@ -14,6 +14,10 @@ namespace Passport_Visa_Management_System.Controllers
         //[Authorize]
         public ActionResult Index()
         {
+            if (Request.Cookies["UserName"] == null)
+            {
+                return Redirect("/SignIn");
+            }
             var username = Request.Cookies["UserName"].Value.ToString();
             int userId = DbOperation.FetchIdByUserName(username);
             if (!DbOperation.CheckUserHaveApplyPassport(userId))
